@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>会员登录</title>
+    <link rel="stylesheet" href="./icon/iconfont.css">
+    <link rel="stylesheet" href="./css/reset.css">
+    <link rel="stylesheet" href="./css/headandfoot.css">
+    <link rel="stylesheet" href="./css/login.css">
+</head>
+<body>
+    <header></header>
+
+    <div id="DL">
+        <div class="nav">
+            <div class="toP">会员登录</div>
+
+            <div id="form">
+                <div>
+                    <input type="text" id="userID" placeholder="已存在用户:13122222222" autocomplete="off" name="userID">
+                    <span id="pHone"></span>
+                </div>
+
+                <div>
+                    <input type="password" id="userPwd" name="userPwd" placeholder="密码:9999998">
+                    <span id="mm1"></span>
+                </div>
+                
+                <div>
+                    <input type="submit" value="立即登录" id="hydl">
+                </div>
+
+            </div>
+
+
+            <div class="bottom">若您尚未注册会员,<a href="register.html" style="color: #da1e25;">请点击注册</a></div>
+        </div>
+    </div>
+
+    <footer></footer>
+</body>
+</html>
+<script src="./new_file.js"></script>
+
+<script>
+
+    $("header").load("header.html .bigBOX",function(){
+        $(".bigBOX").html();
+        $(".navigation li").hover(function(){
+            $(this).find("ul a").css({display:"block"})
+            $(this).find("ul").stop().slideDown(100)
+        },function(){
+            $(this).find("ul a").css({display:"block"})
+            $(this).find("ul").stop().slideUp(1)
+        })
+    })
+
+    $("footer").load("footer.html .foot_top",function(){
+        $(".foot_top").html();
+    })
+
+
+    /* 判断手机号 */
+    
+    var flagTel = null;
+    $("#userID").blur(function(){
+
+        let idValue = $("#userID").val();
+        let regTel = /^1[358]\d{9}$/;
+        if(!regTel.test(idValue)){
+            $("#pHone").html("手机格式不正确！！！");
+            $("#pHone").css({color:"red"});
+            flagTel = false;
+        }else{
+            $("#pHone").html("手机号输入正确");
+            $("#pHone").css({color:"blue"});
+            flagTel = true;
+        }
+    })
+
+
+    /* 密码 */
+    var oPwd = document.getElementById("userPwd");
+
+    var regNum = /^\d{6,18}$/;     //纯数字
+    var regChar = /^[a-zA-Z]{6,18}$/;     //纯字母
+    var regLetter = /^[!@#$]{6,18}$/;    //纯符号
+
+    var _regNum = /\d{1,17}/;     //至少一位数字
+    var _regChar = /[a-zA-Z]{1,17}/;     //至少一位字母
+    var _regLetter = /[!@#$]{1,17}/;    //至少一位符号
+
+    var flagPwd = null;
+
+    oPwd.onblur = function(){
+        var oMm1 = document.getElementById("mm1");
+        if(oPwd.value.length<6 || oPwd.value.length>18 || oPwd.value==""){
+            flagPwd=false;
+            oMm1.innerHTML = "请输入 6~18位 密码";
+            oMm1.style.color="red";
+            
+        }else if(regNum.test(oPwd.value) || regChar.test(oPwd.value) || 
+            regLetter.test(oPwd.value)){
+                oMm1.innerHTML = "密码属于"+"<mark>"+"低"+"</mark>"+"强度";
+                flagPwd=true;
+                oMm1.style.color="";
+
+        }else if(_regNum.test(oPwd.value) && _regChar.test(oPwd.value) && 
+        _regLetter.test(oPwd.value)){
+            oMm1.innerHTML = "密码属于"+"<mark>"+"高"+"</mark>"+"强度";
+            flagPwd=true;
+            oMm1.style.color="";
+        }else{
+            oMm1.innerHTML = "密码属于"+"<mark>"+"中等"+"</mark>"+"强度";
+            flagPwd=true;
+            oMm1.style.color="";
+        }
+        
+    }
+
+
+    /* ajax判断 */
+    $("#hydl").click(function() {
+		if(flagPwd==true && flagTel==true){
+			$.ajax({
+			   type: "get",
+			   url: "php/login.php",
+			   data: "userID="+$("#userID").val()+"&userPwd="+$("#userPwd").val(),
+			   success: function(m){
+			     if(m=="登录成功"){
+                 location.href = "index.html";
+			     }else{
+					 alert("用户名不存在！！");
+				 }
+				 
+			   }
+			});
+		}
+    });
+    
+    
+
+
+</script>

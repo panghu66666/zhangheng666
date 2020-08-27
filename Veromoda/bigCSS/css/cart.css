@@ -1,0 +1,10 @@
+
+table{
+    width:1320px;border:1px solid gray;
+    position:relative;margin:0 auto;
+    border-collapse: collapse;
+}
+
+th{background:#ccc;height:2.5em;margin: 0 auto;}
+
+tr{height:2.5em;margin: 0 auto;text-align: center;}

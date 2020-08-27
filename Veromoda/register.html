@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>会员注册</title>
+    <link rel="stylesheet" href="./icon/iconfont.css">
+    <link rel="stylesheet" href="./css/reset.css">
+    <link rel="stylesheet" href="./css/headandfoot.css">
+    <link rel="stylesheet" href="./css/register.css">
+</head>
+<body>
+    <header></header>
+
+    <main>
+        <div class="_zc">
+            <div class="top">会员注册</div>
+
+            <div class="formZC">
+
+                <div>
+                    <input type="text" id="tel" placeholder="以13或15或18开头的手机号" autocomplete="off" name="tel">
+                    <span id="phone"></span>
+                </div>
+    
+                <div>
+                    <input type="password" id="pWD" placeholder="请填写密码" name="pWD">
+                    <span id="mm1"></span>
+                </div>
+    
+                <div>
+                    <input type="password" name="" id="qPWD" placeholder="请再次输入您的密码">
+                    <span id="mm2"></span>
+                </div>
+    
+                <div>
+                    <input type="text" id="YZM" autocomplete="off" placeholder="输入验证码">
+                    <input type="text" style="width:85px;height:20px;
+                        text-align: center;border: 1px solid blue;" 
+                        id="code" autocomplete="off">
+                    <a href="#" class="yzm">看不清</a>
+                    <em></em>
+                </div>
+    
+                <input type="submit" value="立即注册" id="zhuce">
+            </div>
+                
+        </div>
+    </main>
+
+    <footer></footer>
+</body>
+</html>
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.js"></script>
+
+<script>
+
+    $("header").load("header.html .bigBOX",function(){
+        $(".bigBOX").html();
+        $(".navigation li").hover(function(){
+            $(this).find("ul a").css({display:"block"})
+            $(this).find("ul").stop().slideDown(100)
+        },function(){
+            $(this).find("ul a").css({display:"block"})
+            $(this).find("ul").stop().slideUp(1)
+        })
+    })
+
+    $("footer").load("footer.html .foot_top",function(){
+        $(".foot_top").html();
+    })
+
+
+
+    var oF = document.querySelector("form");
+
+    /* 手机号 */
+    var oTel = document.getElementById("tel");
+    var regTel = /^1[358]\d{9}$/;
+
+    var flagTEL = null;
+
+    oTel.onblur = function(){
+        var oPhone = document.getElementById("phone");
+        if(!regTel.test(oTel.value)){
+            oPhone.innerHTML="手机格式不正确！！！";
+            oPhone.style.color="red";
+            flagTEL = false;
+        }else{
+            oPhone.innerHTML="手机号输入正确";
+            oPhone.style.color="blue";
+            flagTEL = true;
+        }
+    }
+
+    /* 密码 */
+    var oPwd = document.getElementById("pWD");
+
+    var regNum = /^\d{6,18}$/;     //纯数字
+    var regChar = /^[a-zA-Z]{6,18}$/;     //纯字母
+    var regLetter = /^[!@#$]{6,18}$/;    //纯符号
+
+    var _regNum = /\d{1,17}/;     //至少一位数字
+    var _regChar = /[a-zA-Z]{1,17}/;     //至少一位字母
+    var _regLetter = /[!@#$]{1,17}/;    //至少一位符号
+
+    var flagPWD = null;
+
+    oPwd.onblur = function(){
+        var oMm1 = document.getElementById("mm1");
+        if(oPwd.value.length<6 || oPwd.value.length>18 || oPwd.value==""){
+            flagPWD=false;
+            oMm1.innerHTML = "请输入 6~18位 密码";
+            oMm1.style.color="red";
+            
+        }else if(regNum.test(oPwd.value) || regChar.test(oPwd.value) || 
+            regLetter.test(oPwd.value)){
+                oMm1.innerHTML = "密码属于"+"<mark>"+"低"+"</mark>"+"强度";
+                flagPWD=true;
+                oMm1.style.color="";
+
+        }else if(_regNum.test(oPwd.value) && _regChar.test(oPwd.value) && 
+        _regLetter.test(oPwd.value)){
+            oMm1.innerHTML = "密码属于"+"<mark>"+"高"+"</mark>"+"强度";
+            flagPWD=true;
+            oMm1.style.color="";
+        }else{
+            oMm1.innerHTML = "密码属于"+"<mark>"+"中等"+"</mark>"+"强度";
+            flagPWD=true;
+            oMm1.style.color="";
+        }
+        
+    }
+
+    /* 确认密码 */
+    var oQpwd = document.getElementById("qPWD");
+    var flagQpwd = null;
+
+    oQpwd.onblur = function(){
+        var oMm2 = document.getElementById("mm2");
+        if(oQpwd.value!=oPwd.value || oQpwd.value=="" || 
+          oQpwd.value.length<6 || oQpwd.value.length>18){
+
+            oMm2.innerHTML = "与设置密码不一致";
+            flagQpwd = false;
+            oMm2.style.color="red";
+        }else{
+            oMm2.innerHTML = "密码设置成功";
+            flagQpwd = true;
+            oMm2.style.color="blue";
+        }
+    }
+
+    /* 验证码 */
+    var oYzm = document.getElementById("YZM");
+    var oCode = document.getElementById("code");
+    var oA = document.querySelector(".yzm");
+    var oEm = document.querySelector("em");
+
+    function getRandomInt(min,max){
+                    return parseInt(Math.random()*(max - min + 1)) + min;
+                }
+
+    function pd(){
+        var a,b;
+        str = "";
+        for(var i=0;i<4;i++){
+            switch(getRandomInt(1,3)){
+                case 1:
+                    a = 48; b = 57; break;
+                case 2:
+                    a = 65; b = 90; break;
+                case 3:
+                    a = 97; b = 122; break;  
+            }
+            str = str + String.fromCharCode(getRandomInt(a,b));
+        }
+        return str;
+    }
+    
+    
+    oCode.value=parseInt(Math.random()*9000 +1000);  //初始时给其一个值
+
+    oA.onclick = function(){
+
+        pd();  //调用库函数
+        oCode.value=str;
+
+        var color = "#";
+        for(var i=0;i<6;i++){
+            color += parseInt(Math.random()*16).toString(16);
+        }
+        oCode.style.backgroundColor=color;
+    }
+
+    var flagYzm = null;
+    oYzm.onblur=function(){
+        if(oYzm.value != oCode.value || oYzm.value==""){
+            oEm.innerHTML="验证码错误";
+            oEm.style.color="red";
+            flagYzm=false;
+        }else{
+            oEm.innerHTML="验证码输入正确";
+            oEm.style.color="blue";
+            flagYzm=true;
+        }
+    }
+
+
+    $("#zhuce").click(function() {
+		if(flagTEL==true&&flagPWD==true&&flagQpwd==true&&flagYzm==true){
+			$.ajax({
+			   type: "get",
+			   url: "php/register.php",
+			   data: "tel="+$("#tel").val()+"&pWD="+$("#pWD").val(),//tel是php中的tel
+			   success: function(a){
+					if(a=="1"){
+						location.href = "index.html";
+					}else{
+						alert("用户名已存在，请重新注册");
+					}
+
+			   }
+			});
+		}
+	});
+
+
+
+</script>

@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>VERO MODA中国官方购物网站</title>
+    <link rel="stylesheet" href="./icon/iconfont.css">
+    <link rel="stylesheet" href="./css/reset.css">
+    <link rel="stylesheet" href="./css/headandfoot.css">
+    <link rel="stylesheet" href="./css/index.css">
+</head>
+<body>
+    <header>
+        
+    </header>
+
+
+    <div id="banner">
+        <ul class="img">
+            <li><img src="./img/banner_1.jpg" alt=""></li>
+            <li><img src="./img/banner_2.jpg" alt=""></li>
+            <li><img src="./img/banner_3.jpg" alt=""></li>
+            <li><img src="./img/banner_4.jpg" alt=""></li>
+            <li><img src="./img/banner_5.jpg" alt=""></li>
+            <li><img src="./img/banner_6.jpg" alt=""></li>
+        </ul>
+        
+        <ul class="num">
+            <li class="first"></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+        <div class="btn btn-l"><</div>
+        <div class="btn btn-r">></div>
+    </div>
+
+    <div class="title_1"><img src="./img/title1.png" alt="" class="auto"></div>
+
+    <div class="brand">
+        <div class="imgBox">
+            <dl>
+                <dt><img src="./img/BrandImg01.jpg" alt=""></dt>
+                <dd><img src="./img/BrandSeries_1.png" alt="" class="auto"></dd>
+            </dl>
+            <dl class="hml">
+                <dt><img src="./img/BrandImg02.jpg" alt=""></dt>
+                <dd><img src="./img/BrandSeries_2.png" alt="" class="auto"></dd>
+            </dl>
+            <dl>
+                <dt><img src="./img/BrandImg03.jpg" alt=""></dt>
+                <dd><img src="./img/BrandSeries_3.png" alt="" class="auto"></dd>
+            </dl>
+        </div>
+    </div>
+
+    <div class="title_2"><img src="./img/logo.png" alt="" class="auto"></div>
+
+    <div class="cate">
+        <div class="cateBox">
+
+            <div class="catePic">
+                <img src="./img/CategoryImg_1.jpg" alt="">
+                <span class="filter"></span>
+                <h2>连衣裙</h2>
+            </div>
+            <div class="catePic">
+                <img src="./img/CategoryImg_2.jpg" alt="">
+                <span class="filter"></span>
+                <h2>T恤</h2>
+            </div>
+            <div class="catePic">
+                <img src="./img/CategoryImg_3.jpg" alt="">
+                <span class="filter"></span>
+                <h2>休闲裤</h2>
+            </div>
+            <div class="catePic">
+                <img src="./img/CategoryImg_4.jpg" alt="">
+                <span class="filter"></span>
+                <h2>牛仔裤</h2>
+            </div>
+            <div class="catePic">
+                <img src="./img/CategoryImg_1.jpg" alt="">
+                <span class="filter"></span>
+                <h2>连衣裙</h2>
+            </div>
+            <div class="catePic">
+                <img src="./img/CategoryImg_2.jpg" alt="">
+                <span class="filter"></span>
+                <h2>T恤</h2>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="title_news"><img src="./img/newproduct.png" alt="" class="auto"></div>
+
+    <!-- 新款 -->
+    <div class="news">
+        <div class="newsLBox">
+            <dl class="news_l">
+                <dt><img src="./img/newproduct_200512_02.jpg" alt=""></dt>
+                <dd>两穿七分袖修身翻领衬衫 <em style="color: #ff6c2d;">￥399</em></dd>
+            </dl>
+        </div>
+        <div class="newsRBox">
+            <dl class="news_r">
+                <dt><img src="./img/newproduct_200512_03.jpg" alt=""></dt>
+                <dd>复古绑带设计V领衬衫 <em style="color: #ff6c2d;">￥499</em></dd>
+            </dl>
+        </div>
+    </div>
+
+    <!-- footer -->
+    <footer>
+        
+    </footer>
+
+    <!-- 回到顶部效果 -->
+    <div class="goTop">
+        <div class="kefu">
+            <img src="./img/kefu.jpg" alt="">
+            <p>客服</p>
+        </div>
+        <div class="xs">
+            <img src="./img/shang.jpg" alt="" class="auto">
+        </div>
+    </div>
+
+    <div class="tishi"><img src="./img/kefutishi.gif" alt=""></div>
+
+</body>
+</html>
+
+
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.js"></script>
+
+<script>
+
+    $("header").load("header.html .bigBOX",function(){
+        $(".bigBOX").html();
+        $(".navigation li").hover(function(){
+            $(this).find("ul a").css({display:"block"})
+            $(this).find("ul").stop().slideDown(100)
+        },function(){
+            $(this).find("ul a").css({display:"block"})
+            $(this).find("ul").stop().slideUp(1)
+        })
+    })
+
+    $("footer").load("footer.html .foot_top",function(){
+        $(".foot_top").html();
+    })
+    
+
+    let time = null;
+    let sum = $(".img li").length;  //获取图片的长度
+    let index = 0; /*由于图片个数与下侧顺序按钮数量一致，可通过位置进行关联*/
+
+    // 自动轮播：
+    function autoMove(){
+        time = setInterval(function(){
+            index++;
+            if(index==sum-1){
+                index = -1;
+            }
+            startMove();  //调用
+        },1000)
+    }
+
+
+
+    //让图片和底下的数字轮播：
+    function startMove(){
+        if(index ==sum){
+            index = 0;
+        }
+
+        $(".img li").eq(index).stop().fadeIn().siblings(1000).stop().fadeOut(1000);
+        $(".num li").eq(index).addClass("first").siblings().removeClass("first");
+    }
+
+
+    $(function(){
+    
+    //让第一张图片显示
+        $(".img li").eq(0).show();
+    
+    //按钮显示：
+        $("#banner").hover(function(){
+                $(".btn").show();
+                clearInterval(time);
+            },
+            function(){
+                $(".btn").hide();
+                autoMove();
+            }
+        );
+
+        autoMove();
+
+    //划上按钮时停止轮播：
+        $(".btn").hover(function(){
+            clearInterval(time);
+        })
+
+    //点击左边按钮：
+        $(".btn-l").click(function(){
+            clearInterval(time);
+            index--;
+            if(index==0){
+                index=sum;
+            }
+            autoMove();
+            startMove();
+        });
+
+    //点击右侧按钮：
+        $(".btn-r").click(function(){
+            clearInterval(time);
+            index++;
+            if(index==sum-1){
+                index=-1;
+            }
+            autoMove();
+            startMove();
+        });
+
+    //鼠标划上底部数字：
+        $(".num li").hover(function(){
+            clearInterval(time);
+            index=$(this).index();
+            startMove();
+        });
+            
+    });
+
+
+// 回到顶部效果：
+    $(window).scroll(function(){
+        if($(window).scrollTop()>400){
+            $(".xs").fadeIn();
+        }else{
+            $(".xs").fadeOut();
+        }
+    });
+
+    $(".xs").click(function(){
+        $('html').animate({scrollTop:0},1000);
+    })
+
+
+
+    $(".kefu").mouseover(function(){
+        $(".tishi img").css({display:"block"});
+    })
+
+    $(".kefu").mouseout(function(){
+        $(".tishi img").css({display:"none"});
+    })
+
+    $(".tishi img").mouseover(function(){
+        $(".tishi img").css({display:"block"});
+    })
+
+    $(".tishi img").mouseout(function(){
+        $(".tishi img").css({display:"none"});
+    })
+
+
+    /* news */
+    $(".newsLBox").mouseenter(function(){
+        $(".news_l").stop().animate({left:174},1000),
+        $(".news_r").stop().animate({right:174},1000)
+    }).mouseleave(function(){
+        $(".news_l").stop().animate({left:0},1000),
+        $(".news_r").stop().animate({right:0},1000)
+    })
+
+    $(".newsRBox").mouseenter(function(){
+        $(".news_r").stop().animate({right:174},1000),
+        $(".news_l").stop().animate({left:174},1000)
+    }).mouseleave(function(){
+        $(".news_r").stop().animate({right:0},1000),
+        $(".news_l").stop().animate({left:0},1000)
+    })
+
+
+    $(".hml").click(function(){
+        location.href = "huamulan.html";
+    })
+</script>

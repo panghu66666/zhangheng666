@@ -1,0 +1,42 @@
+
+main{
+    height: 680px;background: url(../img/loginBottom.jpg) no-repeat;
+}
+
+main ._zc{
+    width: 400px;height: 440px;position: absolute;
+    top: 240px;right: 132px;background: #fff;
+}
+
+._zc .top{
+    width: 400px;height: 55px;background: #e6e6e6;color: #000;
+    line-height: 55px;font-size: 22px;text-align: center;
+}
+
+
+._zc .formZC{
+    width:320px;height: 345px;padding-top: 30px;padding-left: 40px;
+    padding-right: 40px;
+}
+
+._zc .formZC input{
+    border: 1px solid #e6e6e6;outline: none;height: 44px;
+}
+
+._zc .formZC div{
+    width: 318px;height:70px ;
+}
+#tel,#pWD,#qPWD{
+    width: 318px;
+}
+
+#zhuce{
+    width: 320px;height: 46px;background: #000;
+    color: #fff;font-size: 14px;text-align: center;line-height: 46px;
+    margin-top: 14px;cursor: pointer;
+}
+
+#zhuce:hover{color: #f00;}
+
+.yzm:hover{color: #f00;}
+

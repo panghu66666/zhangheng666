@@ -1,0 +1,42 @@
+
+#DL{
+    height: 680px;background: url(../img/loginBottom.jpg) no-repeat;
+}
+
+#DL .nav{
+    width: 400px;height: 440px;position: absolute;
+    top: 240px;right: 132px;background: #fff;
+}
+
+
+.nav .toP,.nav .bottom{
+    width: 400px;height: 55px;background: #e6e6e6;color: #000;
+    line-height: 55px;font-size: 22px;text-align: center;
+}
+
+.nav .bottom{font-size: 14px;}
+
+.nav #form{
+    width:320px;height: 300px;padding-top: 30px;padding-left: 40px;
+    padding-right: 40px;
+}
+
+
+.nav #form input{
+    border: 1px solid #e6e6e6;outline: none;height: 44px;
+}
+
+.nav #form div{
+    width: 318px;height:70px ;
+}
+
+
+#userID,#userPwd{
+    width: 318px;
+}
+
+ #hydl{
+    display: block; width: 320px;height: 44px;background: #000;
+    color: #fff;font-size: 14px;text-align: center;line-height: 44px;
+    margin-top: 44px;cursor: pointer;
+}

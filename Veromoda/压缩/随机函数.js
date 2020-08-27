@@ -1,0 +1,1 @@
+function random(r,n){return Math.round(Math.random()*(r-n)+n)}function randomStr(){for(var r="",n=0;n<4;n++)r=r+random(0,9)+String.fromCharCode(random(97,122))+String.fromCharCode(random(65,90));for(var o="",n=0;n<4;n++)o+=r[random(0,r.length-1)];return o}randomStr();

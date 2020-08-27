@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>填写并核对订单信息</title>
+    <link rel="stylesheet" href="./icon/iconfont.css">
+    <link rel="stylesheet" href="./css/reset.css">
+    <link rel="stylesheet" href="./css/headandfoot.css">
+    <link rel="stylesheet" href="./css/cart.css">
+</head>
+<body>
+    <header></header>
+    <table border="1">
+        <tr>
+            <th>商品图</th>
+            <th>数量</th>
+            <th>单价</th>
+            <th>小计</th>
+            <th>提交订单</th>
+        </tr>
+
+        <tr>
+            <td><img src="./img/p4.jpg" alt="" style="width: 200px;height:200px;"></td>
+            <td>
+				<button>-</button> <span class="sl">0</span> <button>+</button>
+            </td>
+            <td> 单价：<span class="dj">50</span> </td>
+            <td> 小计：<span class="xj">0</span>  </td>
+            <td> 操作：<input type="button" value="删除">  </td>
+        </tr>
+
+        <tr style="background: #ccc;">
+            <td colspan="5">
+                一共<span id="total-num">0</span>件商品，
+				共计花费<span id="total-price">0</span>元。
+            </td>
+        </tr>
+
+    </table>
+    <footer></footer>
+</body>
+</html>
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.js"></script>
+
+<script>
+
+    $("header").load("header.html .bigBOX",function(){
+        $(".bigBOX").html();
+        $(".navigation li").hover(function(){
+            $(this).find("ul a").css({display:"block"})
+            $(this).find("ul").stop().slideDown(100)
+        },function(){
+            $(this).find("ul a").css({display:"block"})
+            $(this).find("ul").stop().slideUp(1)
+        })
+    })
+
+    $("footer").load("footer.html .foot_top",function(){
+        $(".foot_top").html();
+    })
+
+
+class Cart{
+
+    getGoodsNum(){
+        let oSl = document.getElementsByClassName("sl");
+        /* 加o的代表html元素，不加o的代表普通变量 */
+        let sl = 0;  /* 将oSl中的两个元素中的值相加赋值给sl */
+        
+        for(let i=0;i<oSl.length;i++){
+            sl += Number(oSl[i].innerHTML);
+        }
+
+        let oTotalNnum = document.getElementById("total-num");
+        oTotalNnum.innerHTML = sl;
+    }
+
+    // 计算一共花费了多少钱：
+    getGoodsPrice(){
+        let oXj = document.getElementsByClassName("xj");
+        let xj = 0;
+        for(let i=0;i<oXj.length;i++){
+            xj += Number(oXj[i].innerHTML);
+        }
+        
+        let oTotalPrice = document.getElementById("total-price");
+        oTotalPrice.innerHTML = xj;
+    }
+
+    //计算小计(小计 = 单价 乘以 数量)：
+    getXj(num,price){
+        return num * price;
+    }
+
+    //增加货物(点击加号时)：
+    addGoods(btn){
+        let oGoodsNum = btn.previousElementSibling; //获取加号前面的数值
+        oGoodsNum.innerHTML = Number(oGoodsNum.innerHTML) + 1 ;
+
+    //获取单价节点：
+        let oDj = btn.parentNode.nextElementSibling.firstElementChild;
+
+    //获取小计节点：
+        let oSinglePrice = btn.parentNode.nextElementSibling.
+        nextElementSibling.firstElementChild;
+
+    //拿到小计的值(调用方法前 加this)：
+    oSinglePrice.innerHTML = this.getXj(oGoodsNum.innerHTML,oDj.innerHTML);
+
+    //调用两个方法：
+        this.getGoodsNum();
+        this.getGoodsPrice();
+    }
+
+    //减少货物(点击减号时)：    （与增加货物基本一样）
+    reduceGoods(btn){
+        let oGoodsNum = btn.nextElementSibling; //获取减号后面的数值
+        if(oGoodsNum.innerHTML>0){
+            oGoodsNum.innerHTML = oGoodsNum.innerHTML - 1;
+
+            //获取单价节点：
+            let oDj = btn.parentNode.nextElementSibling.firstElementChild;
+
+            //获取小计节点：
+            let oSinglePrice = btn.parentNode.nextElementSibling.
+            nextElementSibling.firstElementChild;
+
+            //拿到小计的值(调用方法前 加this)：
+    oSinglePrice.innerHTML = this.getXj(oGoodsNum.innerHTML,oDj.innerHTML);
+
+            //调用两个方法：
+            this.getGoodsNum();
+            this.getGoodsPrice();
+        }
+    }
+
+
+    //删除操作：
+    goodsDel(btn){
+        let oTr = btn.parentNode.parentNode;
+        oTr.remove();   //点击时删除
+
+        //调用两个方法：
+        this.getGoodsNum();
+        this.getGoodsPrice();
+    }
+
+
+    //事件绑定：
+    eventBind(){
+        let oBtns = document.getElementsByTagName("button");
+        let tHat = this;  // 先定义一个this，重点！！！！！
+        for(let i=0;i<oBtns.length;i++){
+            if(i%2){ //i=1时走的是加号
+                oBtns[i].onclick=function(){
+                    tHat.addGoods(this); 
+                }
+
+            }else{
+                oBtns[i].onclick=function(){
+                    tHat.reduceGoods(this);
+                }
+            }
+        }
+
+        let oDelbtn = document.getElementsByTagName("input");
+        for(let i=0;i<oDelbtn.length;i++){
+            oDelbtn[i].onclick=function(){
+                tHat.goodsDel(this);
+            }
+        }
+    }
+
+
+    }
+
+    let m = new Cart();
+    m.eventBind();
+
+</script>

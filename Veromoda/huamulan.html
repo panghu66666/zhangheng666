@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>花木兰系列</title>
+    <link rel="stylesheet" href="./icon/iconfont.css">
+    <link rel="stylesheet" href="./css/reset.css">
+    <link rel="stylesheet" href="./css/headandfoot.css">
+    <link rel="stylesheet" href="./css/huamulan.css">
+    
+</head>
+<body>
+    <header></header>
+
+    <div id="banner"><img src="./img/allGoodsList.jpg" alt=""></div>
+    <div class="main">
+        <div class="BOX clear">
+            <dl>
+                <dt class="gouwu"><img src="./img/p1.jpg" alt=""></dt>
+                <a href="mark.html">快速购买</a>
+                <dd>漫画贴布装饰牛仔裤女</dd>
+                <dd style="color: #ff0000;">￥499.00</dd>
+            </dl>
+            <dl>
+                <dt class="gouwu"><img src="./img/p2.jpg" alt=""></dt>
+                <dd>复古低腰漫画贴布装饰牛仔裤女</dd>
+                <dd style="color: #ff0000;">￥349.30 7.0折</dd>
+                <a href="#">快速购买</a>
+            </dl>
+            <dl>
+                <dt class="gouwu"><img src="./img/p3.jpg" alt=""></dt>
+                <dd>拼接设计圆领短袖T恤女</dd>
+                <dd style="color: #ff0000;">￥349.00</dd>
+                <a href="#">快速购买</a>
+            </dl>
+            <dl>
+                <dt class="gouwu"><img src="./img/p4.jpg" alt=""></dt>
+                <dd>拼接设计圆领短袖T恤女</dd>
+                <dd style="color: #ff0000;">￥244.30</dd>
+                <a href="#">快速购买</a>
+            </dl>
+            <dl>
+                <dt class="gouwu"><img src="./img/p5.jpg" alt=""></dt>
+                <dd>舒适印花纯棉短袖T恤女</dd>
+                <dd style="color: #ff0000;">￥199.00</dd>
+                <a href="#">快速购买</a>
+            </dl>
+            <dl>
+                <dt class="gouwu"><img src="./img/p6.jpg" alt=""></dt>
+                <dd>漫画贴布装饰牛仔裤女</dd>
+                <dd style="color: #ff0000;">￥499.00</dd>
+                <a href="#">快速购买</a>
+            </dl>
+            <dl>
+                <dt class="gouwu"><img src="./img/p7.jpg" alt=""></dt>
+                <dd>漫画贴布装饰牛仔裤女</dd>
+                <dd style="color: #ff0000;">￥499.00</dd>
+                <a href="#">快速购买</a>
+            </dl>
+            <dl>
+                <dt class="gouwu"><img src="./img/p8.jpg" alt=""></dt>
+                <dd>漫画贴布装饰牛仔裤女</dd>
+                <dd style="color: #ff0000;">￥499.00</dd>
+                <a href="#">快速购买</a>
+            </dl>
+            <dl>
+                <dt class="gouwu"><img src="./img/p9.jpg" alt=""></dt>
+                <dd>漫画贴布装饰牛仔裤女</dd>
+                <dd style="color: #ff0000;">￥499.00</dd>
+                <a href="#">快速购买</a>
+            </dl>
+        </div>
+    </div>
+
+    <footer></footer>
+</body>
+</html>
+<script src="./new_file.js"></script>
+<script>
+
+    $("header").load("header.html .bigBOX",function(){
+        $(".bigBOX").html();
+        $(".navigation li").hover(function(){
+            $(this).find("ul a").css({display:"block"})
+            $(this).find("ul").stop().slideDown(100)
+        },function(){
+            $(this).find("ul a").css({display:"block"})
+            $(this).find("ul").stop().slideUp(1)
+        })
+    })
+
+    $("footer").load("footer.html .foot_top",function(){
+        $(".foot_top").html();
+    })
+
+
+    
+    for(let i=0;i<$(".gouwu").length;i++){
+        $("dl").eq(i).mouseenter(function(){
+            $(".gouwu img").eq(i).attr("src","./img/p"+(i+1)+"("+(i+1)+").jpg");
+            $("dl a").eq(i).css({background:"#fff"});
+            $("dl a").eq(i).css({opacity:1}).hover(function(){
+                $("dl a").eq(i).css({background:"#ccc"});
+            })
+        }).mouseleave(function(){
+            $(".gouwu img").eq(i).attr("src","./img/p"+(i+1)+".jpg");
+            $("dl a").eq(i).css({opacity:0});
+        })
+
+    }
+
+
+</script>
